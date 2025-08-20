@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Jornalista;
+use App\Models\Emissao;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class EmissaoController extends Controller
+{
+    public function emissao(){
+        $dados = Jornalista::orderBy('nome_completo', 'asc')->get();
+        return view('emissao', ['dados'=> $dados]);
+    }
+
+    //Gravar dados da emissao no banco de dados
+
+    public function emissao_loc(Request $request){
+
+        $request->validate([
+            'locutor_id'=> 'required',
+            'lingua'=> 'required',
+            'hora_inicial'=> 'required',
+            'hora_final'=> 'required',
+            'dia'=> 'required',
+            'dia_semana'=> 'required',
+
+
+
+
+        ],[
+            'locutor_id.required'=> 'Indique o locutor.',
+            'lingua.required'=> 'Indique a lingua para esta emissao',
+            'hora_inicial.required'=> 'Indique a hora inicial da emissao.',
+            'hora_final.required'=> 'Indique a final da emissao',
+        ]);
+
+        if($request->filled('locutor_id', 'lingua', 'hora_inicial', 'hora_final', 'dia')){
+            $emissao = Emissao::create($request->all());
+            return redirect()->back()->with('emissao', 'Emissao agendada com sucesso!');
+        }
+
+    }
+
+    public function s_escala(){
+        $dados = DB :: table('emissoes')
+        ->join('jornalistas', 'emissoes.locutor_id','=','jornalistas.id')
+        ->select('jornalistas.nome_completo as nome', 'emissoes.hora_inicial', 'emissoes.dia', 'emissoes.dia_semana', 'emissoes.hora_final')
+        ->orderBy('dia', 'asc')
+        ->get();
+
+        return view('s_escala', ['dados'=> $dados]);
+
+    }
+}
