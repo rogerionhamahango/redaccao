@@ -46,5 +46,6 @@ Route::get('/', function () {
     Route::get('/s_programa', [ProgramaController::class,'s_programa'])->name('s_programa');
     Route::get('/s_g_reportagem', [GranderepController::class,'s_g_reportagem'])->name('s_g_reportagem');
     Route::get('s_escala', [EmissaoController::class,'s_escala'])->name('s_escala');
+    Route::get('/escalaEmissoes', [EmissaoController::class,'escalaEmissoes'])->name('escalaEmissoes');
     
 });

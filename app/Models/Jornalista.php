@@ -22,4 +22,8 @@ class Jornalista extends Model
         'redacao_de',
 
     ];
+
+    public function emissoes(){
+        return $this->hasMany(Emissao::class);
+    }
 }

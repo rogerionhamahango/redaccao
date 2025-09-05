@@ -17,4 +17,8 @@ class Emissao extends Model
         'dia_semana',
 
     ];
+
+    public function jornalista(){
+        return $this->belongsTo(Jornalista::class, 'locutor_id');
+    }
 }

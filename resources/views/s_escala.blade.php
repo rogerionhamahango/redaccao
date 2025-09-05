@@ -6,7 +6,7 @@
 
 
 @section('table')
-    Escala de trabalho
+    Escala de Locutores
 @endsection
 
 
@@ -15,19 +15,19 @@
     <table class="table table-bordered">
         <tr class="bg-danger">
             <th>
-                Horas ================= Dia de Semana
+               Data
             </th>
-            <th>Nome</th>
-            <th>9h55</th>
+            <th>Horas</th>
+            <th>Nome do Locutor</th>
             
 
 
             @foreach ($dados as $escala)
                <tr>
 
-                <th class="bg-primary">{{$escala->hora_inicial}} <=> {{$escala->hora_final}} =================   {{$escala->dia_semana}}</th>
-                <th class="bg-success">{{ucfirst($escala->nome)}}</th>
-                <th class="bg-warning">{{$escala->dia}}</th>
+                <th class="bg-primary">{{$escala->dia}}</th>
+                <th class="bg-success">{{$escala->hora_inicial}}<=>{{$escala->hora_final}}</th>
+                <th class="bg-warning">{{$escala->nome}}</th>
                 
                 
         

@@ -40,14 +40,28 @@
                 <span class="input-group-text">Emissao</span>
                 <input type="text" name="lingua" class="form-control">
                 <span class="input-group-text">Hora inicio</span>
-                <input type="text" name="hora_inicial" class="form-control">
-                <span class="input-group-text">Hora fim</span>
-                <input type="text" name="hora_final" class="form-control">
+               <select name="hora_inicial" class="form-control">
+                <option value="">Hora inicial</option>
+                <option value="4h30">4h30</option>
+                <option value="9h55">9h55</option>
+                <option value="13h55">13h55</option>
+                <option value="18h55">18h55</option>
+                <option value="0h00">0h00</option>
+               </select>
+                <span class="input-group-text" >Hora final</span>
+                <select name="hora_final" class="form-control">
+                    <option value="">Hora final</option>
+                    <option value="9h55">9h55</option>
+                    <option value="13h55">13h55</option>
+                    <option value="18h55">18h55</option>
+                    <option value="0h30">0h30</option>
+                    <option value="4h55">4h55</option>
+                </select>
                 <span class="input-group-text">Data</span>
                 <input type="date" name="dia" class="form-control">
                 
                 <span class="input-group-text">Data</span>
-                 <select name="dia_semana" id="">
+                 <select name="dia_semana" class="form-control">
                     <option value="">Indique o dia da semana</option>
                     <option value="Segunda">Segunda-Feira</option>
                     <option value="Terca">Terca-Feira</option>

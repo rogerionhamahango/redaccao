@@ -42,7 +42,7 @@ class EmissaoController extends Controller
         }
 
     }
-
+    //funcao de visualizar a escala de emissoes
     public function s_escala(){
         $dados = DB :: table('emissoes')
         ->join('jornalistas', 'emissoes.locutor_id','=','jornalistas.id')
@@ -52,5 +52,20 @@ class EmissaoController extends Controller
 
         return view('s_escala', ['dados'=> $dados]);
 
+    }
+
+    // Escala de Emissões uma forma de organizar
+    public function escalaEmissoes(){
+
+        $escalas = Emissao :: with('jornalista')
+        ->orderBy('dia', 'asc')
+        ->orderBy('hora_inicial')
+        ->orderBy('dia_semana')
+        
+        
+        ->get()
+        ->groupBy('dia_semana');
+
+        return view('s_escala_1', ['escalas'=> $escalas]);
     }
 }
