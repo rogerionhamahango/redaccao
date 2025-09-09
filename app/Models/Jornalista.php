@@ -24,6 +24,6 @@ class Jornalista extends Model
     ];
 
     public function emissoes(){
-        return $this->hasMany(Emissao::class);
+        return $this->hasMany(Emissao::class, 'locutor_id');
     }
 }

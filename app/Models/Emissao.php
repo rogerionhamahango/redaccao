@@ -10,7 +10,6 @@ class Emissao extends Model
 
     protected $fillable = [
         'locutor_id',
-        'lingua',
         'hora_inicial',
         'hora_final',
         'dia',

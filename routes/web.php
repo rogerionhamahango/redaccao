@@ -13,6 +13,7 @@ use App\Http\Controllers\LoggedController;
 use App\Http\Controllers\S_redacaoController;
 use App\Models\Greandereportagem;
 use App\Models\Utilizador;
+use App\Http\Controllers\EscalaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -47,5 +48,6 @@ Route::get('/', function () {
     Route::get('/s_g_reportagem', [GranderepController::class,'s_g_reportagem'])->name('s_g_reportagem');
     Route::get('s_escala', [EmissaoController::class,'s_escala'])->name('s_escala');
     Route::get('/escalaEmissoes', [EmissaoController::class,'escalaEmissoes'])->name('escalaEmissoes');
+    Route::get('/escala', [EscalaController::class, 'escala'])->name('escala');
     
 });

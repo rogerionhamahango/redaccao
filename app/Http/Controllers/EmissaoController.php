@@ -20,7 +20,6 @@ class EmissaoController extends Controller
 
         $request->validate([
             'locutor_id'=> 'required',
-            'lingua'=> 'required',
             'hora_inicial'=> 'required',
             'hora_final'=> 'required',
             'dia'=> 'required',
@@ -31,12 +30,11 @@ class EmissaoController extends Controller
 
         ],[
             'locutor_id.required'=> 'Indique o locutor.',
-            'lingua.required'=> 'Indique a lingua para esta emissao',
             'hora_inicial.required'=> 'Indique a hora inicial da emissao.',
             'hora_final.required'=> 'Indique a final da emissao',
         ]);
 
-        if($request->filled('locutor_id', 'lingua', 'hora_inicial', 'hora_final', 'dia')){
+        if($request->filled('locutor_id', 'hora_inicial', 'hora_final', 'dia')){
             $emissao = Emissao::create($request->all());
             return redirect()->back()->with('emissao', 'Emissao agendada com sucesso!');
         }

@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('emissoes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('locutor_id')->constrained('jornalistas')->onDelete('cascade');
-            $table->string('lingua');
-            $table->string('hora_inicial');
-            $table->string('hora_final');
+            $table->time('hora_inicial');
+            $table->time('hora_final');
             $table->date('dia');
             $table->string('dia_semana');
             $table->timestamps();

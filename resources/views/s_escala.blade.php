@@ -25,7 +25,7 @@
             @foreach ($dados as $escala)
                <tr>
 
-                <th class="bg-primary">{{$escala->dia}}</th>
+                <th class="bg-primary">{{$escala->dia}} - {{$escala->dia_semana}}</th>
                 <th class="bg-success">{{$escala->hora_inicial}}<=>{{$escala->hora_final}}</th>
                 <th class="bg-warning">{{$escala->nome}}</th>
                 

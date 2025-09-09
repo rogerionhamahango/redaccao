@@ -9,7 +9,7 @@
 <div class="w-90 h-80  mb-5">
 
         <a href="{{route('rede')}}" class="btn btn-danger">Acessar</a>
-         <a href="{{route('s_escala')}}" class="btn btn-danger">Escala</a>
+         <a href="{{route('escala')}}" class="btn btn-danger">Escala</a>
          <a href="{{route('s_programa')}}" class="btn btn-danger">Programas</a>
          <a href="{{route('s_jornalistas')}}" class="btn btn-danger">Locutor Jornalista</a>
          <a href="{{route('s_g_reportagem')}}" class="btn btn-danger">Grande Reportagem</a>
