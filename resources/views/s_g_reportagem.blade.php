@@ -10,6 +10,11 @@
 
 @section('content')
 
+<!-- Botao voltar -->
+    <div class="mb-3">
+        <a href="{{route('home')}}" class="btn btn-primary">Voltar</a>
+    </div>
+
 <table  class="table table-bordered">
     <tr class="table-danger">
         <th>Nome</th>

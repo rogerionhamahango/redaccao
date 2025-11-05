@@ -80,6 +80,8 @@ Registo de novo utilizador
       <option value="Chefe de Redacao">Chefe de Redacao</option>
       <option value="Chefe de Emissoes">Chefe de Emissoes</option>
       <option value="Admin do Sistema">Admin_Sistema</option>
+      <option value="Frente Xangana">Frente Xangana</option>
+      <option value="Frente Cicopi">Frente Chope</option>
     </select>
      @error('tipo_utilizador')
 

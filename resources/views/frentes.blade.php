@@ -8,19 +8,16 @@
 
 <div class="w-90 h-80  mb-5">
 
-        <a href="{{route('rede')}}" class="btn btn-danger">Entrar</a>
-         <a href="{{route('escala')}}" class="btn btn-danger">Escala Semanal</a>
-         <a href="{{route('s_escala')}}" class="btn btn-danger">Escala geral</a>
+        <a href="{{route('rede')}}" class="btn btn-danger">Acessar</a>
+         <a href="{{route('escala')}}" class="btn btn-danger">Escala</a>
          <a href="{{route('escala_edicoes')}}" class="btn btn-danger">Escala de edicoes</a>
          <a href="{{route('escala_edicoes')}}" class="btn btn-danger">Escala de Desporto</a>
          <a href="{{route('escala_edicoes')}}" class="btn btn-danger">Escala de Regionais</a>         
          <a href="{{route('s_programa')}}" class="btn btn-danger">Programas</a>
-         
+         <a href="{{route('s_jornalistas')}}" class="btn btn-danger">Locutor Jornalista</a>
          <a href="{{route('s_g_reportagem')}}" class="btn btn-danger">Grande Reportagem</a>
 
-         <a href="{{route('s_redacao')}}" class="btn btn-danger">Agenda da Redacao</a>
-
-         <a href="{{route('s_jornalistas')}}" class="btn btn-danger">Locutores e Jornalistas</a>
+         <a href="{{route('s_redacao')}}" class="btn btn-danger">Agenda Redacao</a>
 
         <div class="d-flex justify-content-between">
             <div class="p-4 w-50 h-50 mb-3 text-white">

@@ -7,10 +7,16 @@
 
 @section('table')
     Escala de Locutores
+
+    
 @endsection
 
 
 @section('content')
+<!-- Botao voltar -->
+    <div class="mb-3">
+        <a href="{{route('home')}}" class="btn btn-primary">Voltar</a>
+    </div>
 
 <table class="table table-bordered text-center">
     <thead>
@@ -49,6 +55,6 @@
 </table>
 
 
-
     
 @endsection
+

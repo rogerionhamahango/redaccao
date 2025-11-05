@@ -11,15 +11,15 @@ use Illuminate\Support\Facades\Auth;
 
 class UtilizadorController extends Controller
 {
-
+    //Esta funcao ordena a devolucao de uma view welcome, onde tem o codigo para fazer login
     public function rede(){
         return view('welcome');
     }
-
+    //esta funcao devolve a view onde se regista o novo utilizador
     public function utilizador(){
         return view('utilizador');
     }
-
+    //esta funcao destina-se a gravar os dados no banco de dados e sua model denomina-se Utilizador
     public function gravar(Request $request){
         $request->validate([
             'nome_completo'=>'required',
@@ -60,6 +60,7 @@ class UtilizadorController extends Controller
 }
     }
 
+    //nesta funcao temos a logica de autenticar-se para fazer login onde tem 5 tipos de utilizadores
     public function logar(Request $request){
         $request->validate([
             'nome_utilizador'=> 'required',
@@ -89,10 +90,21 @@ class UtilizadorController extends Controller
             return redirect()->route('logged');
         }else if($utilizador->tipo_utilizador == 'Chefe de Emissoes'){
             return redirect()->route('emissaolog');
+        } else if($utilizador->tipo_utilizador == 'Admin do Sistema'){
+
+            return redirect()->route('adminsis');
+        } else if($utilizador -> tipo_utilizador == 'Frente Xangana'){
+            return redirect()->route('frente');
         }
-        if($utilizador->tipo_utilizador == 'Admin do Sistema');
-           return redirect()->route('adminsis');
+        if($utilizador->tipo_utilizador == 'Frente Cicopi');
+        return redirect()->route('frente');
+           
     }
+
+     
+        
+        
+      //funcao para encerrar a sessao no sistema  
 
     public function logout()
     {
