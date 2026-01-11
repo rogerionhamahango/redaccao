@@ -9,8 +9,12 @@ use Illuminate\Support\Facades\DB;
 
 class EmissaoController extends Controller
 {
+
+    //esta funcao serve para registar emissao (produzir a escala de locutores nas emissoes)
     public function emissao(){
-        $dados = Jornalista::orderBy('nome_completo', 'asc')->get();
+        $dados = Jornalista::orderBy('nome_completo', 'asc')
+       
+        ->get();
         return view('emissao', ['dados'=> $dados]);
     }
 
@@ -44,7 +48,7 @@ class EmissaoController extends Controller
     public function s_escala(){
         $dados = DB :: table('emissoes')
         ->join('jornalistas', 'emissoes.locutor_id','=','jornalistas.id')
-        ->select('jornalistas.nome_completo as nome', 'emissoes.hora_inicial', 'emissoes.dia', 'emissoes.dia_semana', 'emissoes.hora_final')
+        ->select('jornalistas.nome_completo as nome', 'emissoes.hora_inicial', 'jornalistas.redacao_de as redacao', 'emissoes.dia', 'emissoes.dia_semana', 'emissoes.hora_final')
         ->orderBy('dia', 'asc')
         ->get();
 

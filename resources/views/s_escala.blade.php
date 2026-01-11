@@ -1,45 +1,50 @@
-@extends('layout.home')
-
-@section('title')
-    escala
-@endsection
-
-
-@section('table')
-    Escala de Locutores
-@endsection
-
+@extends('layout.home') 
 
 @section('content')
+    <h1>Escala de Emissões</h1>
+    @php
 
-    <!-- Botao voltar -->
-    <div class="mb-3">
-        <a href="{{route('home')}}" class="btn btn-primary">Voltar</a>
-    </div>
+          use Carbon\Carbon;
 
-    <table class="table table-bordered">
+        $dia_semana = [
+            1=>'Domingo',
+            2=>'Segunda-Feira',
+            3=>'Terca-Feira',
+            4=>'Quarta-Feira',
+            5=>'Quinta-Feira',
+            6=>'Sexta-Feira',
+            7=>'Sabado'
+        ];
+
+        
+    @endphp
+
+   <table  class="table table-bordered">
+   <thead>
         <tr class="bg-danger">
-            <th>
-               Data
-            </th>
-            <th>Horas</th>
-            <th>Nome do Locutor</th>
-            
-
-
-            @foreach ($dados as $escala)
-               <tr>
-
-                <th class="bg-primary">{{$escala->dia}} - {{$escala->dia_semana}}</th>
-                <th class="bg-success">{{$escala->hora_inicial}}<=>{{$escala->hora_final}}</th>
-                <th class="bg-warning">{{$escala->nome}}</th>
-                
-                
-        
-        
-                </tr>               
-            @endforeach
+            <th>Hora</th>
+            <th>Dia</th>
+            <th>Dia da Semana</th>
+            <th>Nome do Locutor</th> 
+            <th>Provincia</th> 
+                      
         </tr>
+
+   </thead>
+   <tbody>
+    @foreach($escalas as $dia_semana => $emissoes)
+
+        @foreach($emissoes as $emissao)     
+        <tr class="text-nowrap text-dark" style="font-size: 18px; font-weight: bold;">
+            <td>{{ $emissao->hora_inicial }} - {{ $emissao->hora_final}} </td>
+            <td>{{ $emissao->dia}}</td>
+            <td>{{ $emissao->dia_semana }}</td>
+            <td>{{ $emissao->jornalista->nome_completo }}</td>
+            <td>{{ $emissao->provincia->nome }}</td>            
+        </tr>
+        @endforeach
+    @endforeach
+   </tbody> 
     </table>
-    
 @endsection
+

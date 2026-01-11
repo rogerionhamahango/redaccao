@@ -25,7 +25,9 @@
             <th>Hora</th>
             <th>Dia</th>
             <th>Dia da Semana</th>
-            <th>Nome do Locutor</th>            
+            <th>Nome do Locutor</th> 
+            <th>Provincia</th> 
+                      
         </tr>
 
    </thead>
@@ -38,6 +40,7 @@
             <td>{{ $emissao->dia}}</td>
             <td>{{ $emissao->dia_semana }}</td>
             <td>{{ $emissao->jornalista->nome_completo }}</td>
+           
 
 
         </tr>
