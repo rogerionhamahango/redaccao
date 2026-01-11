@@ -10,14 +10,17 @@
 
         <a href="{{route('rede')}}" class="btn btn-danger">Entrar</a>
          <a href="{{route('escala')}}" class="btn btn-danger">Escala Semanal</a>
-         <a href="{{route('s_escala')}}" class="btn btn-danger">Escala geral</a>
-         <a href="{{route('escala_edicoes')}}" class="btn btn-danger">Escala de edicoes</a>
-         <a href="{{route('escala_edicoes')}}" class="btn btn-danger">Escala de Desporto</a>
-         <a href="{{route('escala_edicoes')}}" class="btn btn-danger">Escala de Regionais</a>         
+         <a href="{{route('vencida_corrente_futura')}}" class="btn btn-danger">Escala Detalhada</a>
+       
+         <a href="{{route('escala_edicoes')}}" class="btn btn-danger">Escala Edicoes</a>
+        
+         <a href="{{route('escala_edicoes')}}" class="btn btn-danger">Escala Regionais</a>         
          <a href="{{route('s_programa')}}" class="btn btn-danger">Programas</a>
-         
+         <!--
          <a href="{{route('s_g_reportagem')}}" class="btn btn-danger">Grande Reportagem</a>
 
+            -->
+        
          <a href="{{route('s_redacao')}}" class="btn btn-danger">Agenda da Redacao</a>
 
          <a href="{{route('s_jornalistas')}}" class="btn btn-danger">Locutores e Jornalistas</a>

@@ -15,15 +15,18 @@ use App\Models\Greandereportagem;
 use App\Models\Utilizador;
 use App\Http\Controllers\EscalaController;
 use App\Http\Controllers\FrenteControler;
+use App\Http\Controllers\SemanaController;
 use Illuminate\Support\Facades\Route;
 
 
 
     Route::get('/', [AdminsisController::class, 'home'])->name('home');
+    
 
     
     //rotas em grupo
     Route::prefix('admin')->group(function () {
+    Route::get('/home', [AdminsisController::class, 'home'])->name('home');
         //rota para login
     Route::get('/rede', [UtilizadorController::class, 'rede'])->name('rede');
         //rota para registar emissao
@@ -86,5 +89,6 @@ use Illuminate\Support\Facades\Route;
     Route::get('/noticiarioJornais', [RedacaoController::class, 'noticiarioJornais'])->name('noticiarioJornais');
         //rota para registar escala de edicoes no banco de dados
     Route::post('/edicoes', [RedacaoController::class, 'edicoes'])->name('edicoes');
+    Route::get('vencida_corrente_futura', [SemanaController::class, 'vencida_corrente_futura'])->name('vencida_corrente_futura');
     
 });
