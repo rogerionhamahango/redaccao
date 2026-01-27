@@ -34,8 +34,14 @@ class EscalaController extends Controller
        ->with('jornalista')
        ->get();
 
+       //Contar o numero de vezes que cada Locutor aparece na escala
 
-        return view('s_escala2', compact('dias', 'horas', 'escalas'));
+       $contagem = $escalas
+              ->groupBy('jornalista.nome_completo')
+              ->map(fn($grupo)=> $grupo->count());
+
+
+        return view('s_escala2', compact('dias', 'horas', 'escalas', 'contagem'));
     }
 
 
@@ -59,7 +65,12 @@ class EscalaController extends Controller
             ->with('jornalista')
             ->get();
 
-            return view('s_escala_edicoes', compact('dias', 'horas', 'escala_edicoes'));
+            //contar o numero de vezes que aparece o jornalista na escala de edicoes
+            $jornalista_contagem = $escala_edicoes
+                ->groupBy('jornalista.nome_completo')
+                ->map(fn($jornalista) => $jornalista->count());
+
+            return view('s_escala_edicoes', compact('dias', 'horas', 'escala_edicoes', 'jornalista_contagem'));
         
     }
 }

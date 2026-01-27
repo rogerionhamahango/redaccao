@@ -54,6 +54,19 @@
     
 </table>
 
+<h2>Numero de emissoes por Locutor durante esta semana</h2>
+<table class="table table-bordered text-left">
+    <tr>
+        <th>Nome do Locutor</th>
+        <th>Numero de emissoes</th>
+    </tr>
+    @foreach($contagem as $nome => $total)
+        <tr>
+            <td>{{ $nome }}</td>
+            <td>{{ $total }}</td>
+        </tr>
+    @endforeach
+</table>
 
     
 @endsection

@@ -8,30 +8,26 @@ use Carbon\Carbon;
 
 class SemanaController extends Controller
 {
- 
-
-public function vencida_corrente_futura(Request $request)
-{
-    $hoje = Carbon::today();
-        $tipo = $request->query('tipo', 'correntes'); // padrão: correntes
+    public function vencida_corrente_futura(Request $request)
+    {
+        $hoje = Carbon::today()->toDateString();
+        $tipo = $request->query('tipo', 'correntes');
         $perPage = 10;
 
-        if ($tipo === 'vencidas') {
-            $escalas = Emissao::where('dia', '<', $hoje)
-                ->orderBy('dia', 'desc')
-                ->with('jornalista')
-                ->paginate($perPage, ['*'], 'page');
-        } elseif ($tipo === 'futuras') {
-            $escalas = Emissao::where('dia', '>', $hoje)
-                ->orderBy('dia', 'asc')
-                ->with('jornalista')
-                ->paginate($perPage, ['*'], 'page');
-        } else { // correntes
-            $escalas = Emissao::where('dia', '=', $hoje)
-                ->orderBy('hora_inicial', 'asc')
-                ->with('jornalista')
-                ->paginate($perPage, ['*'], 'page');
-        }
+        $query = Emissao::with('jornalista');
+
+        match ($tipo) {
+            'vencidas' => $query->whereDate('dia', '<', $hoje)
+                                 ->orderBy('dia', 'desc'),
+
+            'futuras'  => $query->whereDate('dia', '>', $hoje)
+                                 ->orderBy('dia', 'asc'),
+
+            default    => $query->whereDate('dia', '=', $hoje)
+                                 ->orderBy('hora_inicial', 'asc'),
+        };
+
+        $escalas = $query->paginate($perPage);
 
         $dias_semana = [
             0 => 'Domingo',
@@ -43,7 +39,10 @@ public function vencida_corrente_futura(Request $request)
             6 => 'Sábado'
         ];
 
-        return view('vencida_corrente_futura', compact('escalas', 'tipo', 'dias_semana'));
-}
-
+        return view('vencida_corrente_futura', compact(
+            'escalas',
+            'tipo',
+            'dias_semana'
+        ));
+    }
 }

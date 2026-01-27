@@ -62,6 +62,26 @@
     
 </table>
 
+<div class="mt-5">
+    <h3>Contagem de Jornalistas na Escala de Edições</h3>
+    <table class="table table-bordered text-left">
+        <thead>
+            <tr>
+                <th>Jornalista</th>
+                <th>Numero de edicoes</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($jornalista_contagem as $nome => $contagem)
+                <tr>
+                    <td>{{ $nome }}</td>
+                    <td>{{ $contagem }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+
 
 
 @endsection
