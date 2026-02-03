@@ -14,7 +14,7 @@
        
          <a href="{{route('escala_edicoes')}}" class="btn btn-danger">Escala Edicoes</a>
         
-         <a href="{{route('escala_edicoes')}}" class="btn btn-danger">Escala Regionais</a>         
+         <a href="{{route('edicao_detalhada')}}" class="btn btn-danger">Escala de Edicoes Detalhada</a>         
          <a href="{{route('s_programa')}}" class="btn btn-danger">Programas</a>
          <!--
          <a href="{{route('s_g_reportagem')}}" class="btn btn-danger">Grande Reportagem</a>

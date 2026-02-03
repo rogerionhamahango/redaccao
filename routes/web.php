@@ -90,5 +90,6 @@ use Illuminate\Support\Facades\Route;
         //rota para registar escala de edicoes no banco de dados
     Route::post('/edicoes', [RedacaoController::class, 'edicoes'])->name('edicoes');
     Route::get('vencida_corrente_futura', [SemanaController::class, 'vencida_corrente_futura'])->name('vencida_corrente_futura');
+    Route::get('edicao_detalhada', [EscalaController::class, 'edicao_detalhada'])->name('edicao_detalhada');
     
 });

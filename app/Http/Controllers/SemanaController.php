@@ -45,4 +45,14 @@ class SemanaController extends Controller
             'dias_semana'
         ));
     }
+
+  
+
 }
+
+
+
+
+
+
+

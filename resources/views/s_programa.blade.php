@@ -3,7 +3,7 @@
 @section('title', 'programas')
 
 @section('table')
-    Saida programas
+    Programas registados e datas de transmissao
     
 @endsection
 
@@ -16,8 +16,8 @@
 
 <table  class="table table-bordered">
     <tr class="table-danger">
-        <th>Nome</th>
-        <th>Programa</th>
+        <th>Nome do Produtor</th>
+        <th>Nome do Programa</th>
         <th>Linguas</th>
         <th>Duracao</th>
         <th>Data de transmissao</th>

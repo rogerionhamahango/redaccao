@@ -73,4 +73,41 @@ class EscalaController extends Controller
             return view('s_escala_edicoes', compact('dias', 'horas', 'escala_edicoes', 'jornalista_contagem'));
         
     }
+
+
+    //Metodo para mostrar escala detalhada de edicoes
+   public function edicao_detalhada(Request $request)
+{
+    $hoje = Carbon::today()->toDateString();
+    $tipo = $request->query('tipo', 'correntes'); // valor da URL ou padrão
+    $perPage = 10;
+
+    $query = Edicao::with('jornalista');
+
+    // atribuir match de volta
+     match ($tipo) {
+        'vencidas' => $query->whereDate('dia', '<', $hoje)
+                             ->orderBy('dia', 'asc'),
+        'futuras'  => $query->whereDate('dia', '>', $hoje)
+                             ->orderBy('dia', 'asc'),
+        default    => $query->whereDate('dia', '=', $hoje)
+                             ->orderBy('horas', 'asc'), // ou 'horas' se for o campo certo
+    };
+
+    $escalas = $query->paginate($perPage);
+
+    $dias_semana = [
+        0 => 'Domingo',
+        1 => 'Segunda-Feira',
+        2 => 'Terça-Feira',
+        3 => 'Quarta-Feira',
+        4 => 'Quinta-Feira',
+        5 => 'Sexta-Feira',
+        6 => 'Sábado'
+    ];
+
+    // Passa $tipo para a view
+    return view('edicao_detalhada', compact('escalas', 'dias_semana', 'tipo'));
+}
+
 }
