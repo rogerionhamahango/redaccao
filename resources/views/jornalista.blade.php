@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('title')
-    jornalista    
+    Jornalista    
 @endsection
 
 @section('table')

@@ -1,7 +1,7 @@
 @extends('layout.home')
 
 @section('title')
-    jornalista e locutores
+    Jornalista & Locutores
 @endsection
 
 @section('table')

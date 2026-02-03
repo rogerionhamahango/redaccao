@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('title')
-emissoes    
+Emissoes    
 @endsection
 
 @section('table')

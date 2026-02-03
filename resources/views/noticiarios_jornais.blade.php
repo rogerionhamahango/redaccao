@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('title')
-    redacao
+    Redacao
 @endsection
 
 

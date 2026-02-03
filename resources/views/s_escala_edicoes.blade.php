@@ -1,7 +1,7 @@
 @extends('layout.home')
 
 @section('title')
-    escala
+    Escala
 @endsection
 
 
@@ -49,7 +49,7 @@
                     @endphp
 
                     @if($escala_ed)
-                        {{ optional($escala_ed->jornalista)->nome_completo ?? '---' }}
+                        {{ optional($escala_ed->jornalista)->nome_completo ?? '---' }} 
                     @else
                         ==
                     @endif

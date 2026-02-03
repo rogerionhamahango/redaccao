@@ -1,6 +1,6 @@
 @extends('layout.home')
 
-@section('title', 'redacao')
+@section('title', 'Redacao')
 
 @section('table')
     Saida da redacao

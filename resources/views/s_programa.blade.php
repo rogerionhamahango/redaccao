@@ -1,6 +1,6 @@
 @extends('layout.home')
 
-@section('title', 'programas')
+@section('title', 'Programas')
 
 @section('table')
     Programas registados e datas de transmissao

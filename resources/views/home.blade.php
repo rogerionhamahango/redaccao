@@ -1,7 +1,7 @@
 @extends('layout.home')
 
 @section('title')
-    home
+    Home
 @endsection
 
 @section('content')
