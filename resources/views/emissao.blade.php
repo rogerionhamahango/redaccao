@@ -30,7 +30,7 @@
                  <select name="locutor_id" class="form-control" >
                     <option value="">Selecione o Locutor/ Jornalista</option>
                     @foreach ($dados ?? [] as $produtor)
-                        <option value="{{$produtor->id}}">{{$produtor->nome_completo}}</option>
+                        <option value="{{$produtor->id}}">{{$produtor->abreviatura}}</option>
                         
                     @endforeach
                  </select>

@@ -1,5 +1,9 @@
 @extends('layout.admin')
 
+@section('title')
+    Utilizador
+@endsection
+
 @section('table')
 Registo de novo utilizador
 

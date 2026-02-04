@@ -24,7 +24,7 @@ Trabalhos agendados
         <select name="" id="">
             <option value="">Selecione o destacado</option>
             @foreach ($agendado ?? [] as $actividade)
-                <option value="{{$actividade->nome_completo}}">{{$actividade->id}}</option>                
+                <option value="{{$actividade->abreviatura}}">{{$actividade->id}}</option>                
             @endforeach    
         </select>    
     </div>    

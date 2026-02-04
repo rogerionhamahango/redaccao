@@ -17,7 +17,7 @@
         <td>{{ $escala->horas ?? 'Sem horário' }}</td>
         <td>{{ $dia->format('d/m/Y') }}</td>
         <td>{{ $dia->dayName }}</td>
-        <td>{{ $escala->jornalista->nome_completo ?? 'Sem Locutor' }}</td>
+        <td>{{ $escala->jornalista->abreviatura ?? 'Sem Editor' }}</td>
     </tr>
 @endforeach
 

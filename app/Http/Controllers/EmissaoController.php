@@ -12,9 +12,10 @@ class EmissaoController extends Controller
 
     //esta funcao serve para registar emissao (produzir a escala de locutores nas emissoes)
     public function emissao(){
-        $dados = Jornalista::orderBy('nome_completo', 'asc')
+        $dados = Jornalista::orderBy('abreviatura', 'asc')
        
         ->get();
+
         return view('emissao', ['dados'=> $dados]);
     }
 

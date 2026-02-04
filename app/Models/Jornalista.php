@@ -10,6 +10,7 @@ class Jornalista extends Model
 
     protected $fillable = [
         'nome_completo',
+        'abreviatura',
         'genero',
         'nuit',
         'data_admissao',

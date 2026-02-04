@@ -41,7 +41,7 @@ class ProgramaController extends Controller
 public function s_programa(){
     $programa = DB::table('programas')
     ->join('jornalistas', 'produtor_id','=','jornalistas.id')
-    ->select('jornalistas.nome_completo as nome', 'programas.programa', 'programas.lingua', 'programas.duracao', 'programas.data_transmissao', 'programas.data_repeticao')
+    ->select('jornalistas.abreviatura as nome', 'programas.programa', 'programas.lingua', 'programas.duracao', 'programas.data_transmissao', 'programas.data_repeticao')
     ->orderBy('programas.data_transmissao', 'desc')
     ->get();
 

@@ -39,7 +39,22 @@
                         </div>
         
                         @enderror
-            </div>
+                </div>
+                 <div class="form-floating mb-3">
+    
+                <input type="text" name="abreviatura" class="form-control"  placeholder="name@example.com">
+                <label  class="form-label">Inicial maiscula e sobrenome</label>
+                
+                     @error('abreviatura')
+
+                        <div class="alert alert-danger">
+                            {{$message}}
+                        </div>
+        
+                        @enderror
+
+                </div>
+
 
              <div class="form-floating mb-3">
     

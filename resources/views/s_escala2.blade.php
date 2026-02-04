@@ -1,7 +1,7 @@
 @extends('layout.home')
 
 @section('title')
-    escala
+    Escala
 @endsection
 
 
@@ -39,12 +39,16 @@
                 @foreach ($dias as $dia)
                     <td>
                         @php
-                        $escala = $escalas->firstWhere(fn($e)=>$e->dia==$dia->format('Y-m-d') && $e->hora_inicial==$hora);
+                            $escala = $escalas->first(function($e) use ($dia, $hora) {
+                                return \Carbon\Carbon::parse($e->dia)->format('Y-m-d') == $dia->format('Y-m-d')
+                                    && \Carbon\Carbon::parse($e->hora_inicial)->format('H:i') == \Carbon\Carbon::parse($hora)->format('H:i');
+                                        });
+
                         @endphp
                         @if ($escala)
-                            {{$escala->jornalista->nome_completo}}
+                            <strong>{{ $escala->jornalista->abreviatura }}</strong>
                         @else
-                            -
+                            ==
                         @endif
                     </td>
                     @endforeach

@@ -20,6 +20,7 @@ class JornalistaController extends Controller
 
         $request->validate([
             'nome_completo'=> 'required',
+            'abreviatura'=> 'required',
             'genero'=> 'required',
             'nuit'=> 'required',
             'data_admissao'=> 'required',
@@ -36,6 +37,7 @@ class JornalistaController extends Controller
         ],
     [
         'nome_completo.required'=>'Campo nome obrigatorio!',
+        'abreviatura.required'=>'Campo abreviatura obrigatorio!',
         'genero.required'=>'Campo genero obrigatorio!',
         'nuit.required'=>'Campo NUIT obrigatorio!',
         'data_admissao.required'=>'Campo data de admissao obrigatorio!',

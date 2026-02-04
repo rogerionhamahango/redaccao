@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('jornalistas', function (Blueprint $table) {
             $table->id();
             $table->string('nome_completo');
+            $table->string('abreviatura');
             $table->string('genero');
             $table->string('nuit')->unique();
             $table->date('data_admissao');

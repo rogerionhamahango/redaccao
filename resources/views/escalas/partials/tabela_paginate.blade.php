@@ -14,7 +14,7 @@
                 <td>{{ $emissao->hora_inicial }} - {{ $emissao->hora_final }}</td>
                 <td>{{ $emissao->dia }}</td>
                 <td>{{ $dias_semana[Carbon\Carbon::parse($emissao->dia)->dayOfWeek] }}</td>
-                <td>{{ $emissao->jornalista->nome_completo }}</td>
+                <td>{{ $emissao->jornalista->abreviatura }}</td>
                 
             </tr>
         @endforeach

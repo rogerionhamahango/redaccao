@@ -29,16 +29,17 @@ class EscalaController extends Controller
             '18:55',
             '0:00'
         ];
+        $escalas = Emissao::whereBetween('dia', [$inicio, $fim])
+            ->with('jornalista')
+            ->get();
 
-       $escalas = Emissao::whereBetween(DB::raw('DATE(dia)'), [$inicio, $fim])
-       ->with('jornalista')
-       ->get();
 
        //Contar o numero de vezes que cada Locutor aparece na escala
 
        $contagem = $escalas
-              ->groupBy('jornalista.nome_completo')
-              ->map(fn($grupo)=> $grupo->count());
+        ->groupBy(fn ($e) => $e->jornalista->abreviatura)
+        ->map(fn ($grupo) => $grupo->count());
+
 
 
         return view('s_escala2', compact('dias', 'horas', 'escalas', 'contagem'));
@@ -67,7 +68,7 @@ class EscalaController extends Controller
 
             //contar o numero de vezes que aparece o jornalista na escala de edicoes
             $jornalista_contagem = $escala_edicoes
-                ->groupBy('jornalista.nome_completo')
+                ->groupBy('jornalista.abreviatura')
                 ->map(fn($jornalista) => $jornalista->count());
 
             return view('s_escala_edicoes', compact('dias', 'horas', 'escala_edicoes', 'jornalista_contagem'));
