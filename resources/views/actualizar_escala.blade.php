@@ -14,7 +14,7 @@
 @section('content')
 <!-- Botao voltar -->
     <div class="mb-3">
-        <a href="{{route('home')}}" class="btn btn-primary">Voltar</a>
+        <a href="{{route('adminsis')}}" class="btn btn-primary">Voltar</a>
     </div>
 
 <table class="table table-bordered text-center">
@@ -45,7 +45,8 @@
 
                         @endphp
                         @if ($escala)
-                            <strong>{{ $escala->jornalista->abreviatura }}</strong>
+                            <strong>{{ $escala->jornalista->abreviatura   }} <a href="{{ route('actualizar', $escala->id) }}">Editar</a></strong>
+                            
                         @else
                             ==
                         @endif

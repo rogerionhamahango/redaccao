@@ -57,17 +57,36 @@
                         <span class="visually-hidden">Next</span>
                         </button>
                     </div>
+                    
                 </div>
 
 
 
 
-            <div class="p-4 w-50 h-50 mb-3  text-white">
-                
+            
+        </div>
+            <div class="p-4 w-50 h-40 mb-3 text-dark" >
+                <h5 class="card-header"></h5>
+                <div >
+                <h5 class="card-title">Sistema de Gestao do Sector de Producao</h5>
+                <p class="card-text">Sistema de Gestao do Sector de Producao, visa auxiliar na organizacao e gerenciamento das atividades do setor de producao.
+                        Organiza escalas, por categorias.
+                        O SGSP é uma ferramenta essencial para otimizar a eficiência e a produtividade do setor de produção, garantindo que as atividades sejam realizadas de forma coordenada e eficaz.</p>
+                <p class="card-text" >O SGSP é projetado para atender às necessidades específicas do setor de produção, oferecendo recursos como:
+                        - Gerenciamento de Escalas: Permite criar e gerenciar escalas de trabalho para diferentes categorias, garantindo que as atividades sejam distribuídas de maneira eficiente.
+                        - Acompanhamento de Atividades: Facilita o acompanhamento das atividades em andamento, permitindo que os gestores monitorem o progresso e identifiquem possíveis gargalos.
+                        - Comunicação Eficiente: Oferece ferramentas de comunicação para facilitar a colaboração entre os membros da equipe, garantindo que todos estejam alinhados e informados sobre as atividades em andamento.
+                        - Relatórios e Análises: Fornece relatórios detalhados e análises para ajudar os gestores a tomar decisões informadas e melhorar continuamente os processos de produção.</p>
+                <p class="card-text">O SGSP é uma solução abrangente que visa melhorar a eficiência e a organização do setor de produção, contribuindo para o sucesso e crescimento da empresa.</p>
+                 <p class="card-text">
+                </p>
+                <a href="{{route('rede')}}">Entrar...</a>
             </div>
         </div>
 
     </div>
+
+    
 
     
 @endsection

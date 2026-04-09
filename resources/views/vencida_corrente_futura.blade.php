@@ -1,11 +1,11 @@
 @extends('layout.admin')
 
 @section('title')
-    Escala de Emissões
+    Escala detalhada
 @endsection
 
 @section('content')
-<h1>Escala de Emissões</h1>
+<h1>Escala detalhadade de emissões</h1>
     <div class="mb-3">
         <a href="{{route('home')}}" class="btn btn-primary">Voltar</a>
     </div>

@@ -75,7 +75,7 @@ public function agenda(Request $request){
             return redirect()->back()->with('edicao', 'Esta edicao foi registada com sucesso');
         }
         //algo fora de conformidade? entao devolver erro.
-        return redirect()->back()->with('edicao_nao', 'A edicao nao agendada');
+        return redirect()->back()->with('edicao_nao', 'Edicao nao agendada');
     }
 
 }

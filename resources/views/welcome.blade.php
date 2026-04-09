@@ -36,13 +36,13 @@
                                             </div>
                                             
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="password.html" style="text-decoration:none; color:black;">Esqueci a minha senha?</a>
+                                                <a class="small" href="#" style="text-decoration:none; color:black;">Esqueceu a senha?</a>
                                                 <button type="submit" class="btn btn-danger btn-lg">Entrar</button>
                                             </div>
                                         </form>
                                     </div>
                                     <div class="card-footer bg-danger text-center py-3">
-                                        <div class="small"><a href="register.html" style="text-decoration: none; color:aliceblue; ">Plataforma da Redaccao</a></div>
+                                        <div class="small"><a href="{{route('home')}}" style="text-decoration: none; color:aliceblue; ">Plataforma da Redaccao</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -51,14 +51,17 @@
                 </main>
             </div>
             <div id="layoutAuthentication_footer">
-                <footer class="py-4 bg-danger mt-auto">
-                    <div class="container-fluid px-4">
+                <footer class="py-4 mt-auto bg-danger" >
+                    <div class="container-fluid px-4 bd-danger">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
+                            <div class="text-dark "><strong>Copyright &copy; {{\Carbon\Carbon::now()->year}}</strong></div>
+                            <div >
+                                <strong>
+                                    <a href="#" class="text-dark" style="text-decoration: none">Radio Mocambique, hoje e sempre projectando Mocambique</a>
                                 &middot;
-                                <a href="#">Terms &amp; Conditions</a>
+                                <a href="#" class="text-dark" style="text-decoration: none">RJNH a Sua solucao digital</a>
+                                </strong>
+                                
                             </div>
                         </div>
                     </div>

@@ -37,7 +37,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('/programa', [ProgramaController::class, 'programa'])->name('programa');
         //rota para registar dados na base de dados
     Route::post('/gravar', [UtilizadorController::class, 'gravar'])->name('gravar');
-        //rota o autenticacao
+        //rota para autenticacao
     Route::post('/logar', [UtilizadorController::class,'logar'])->name('logar');
         //rota para administrador do sistema
     Route::get('/adminsis', [AdminsisController::class, 'adminsis'])->name('adminsis');
@@ -91,5 +91,9 @@ use Illuminate\Support\Facades\Route;
     Route::post('/edicoes', [RedacaoController::class, 'edicoes'])->name('edicoes');
     Route::get('vencida_corrente_futura', [SemanaController::class, 'vencida_corrente_futura'])->name('vencida_corrente_futura');
     Route::get('edicao_detalhada', [EscalaController::class, 'edicao_detalhada'])->name('edicao_detalhada');
+
+    Route::get('/actualizar_escala', [EscalaController::class, 'actualizar_escala'])->name('actualizar_escala');
+    Route::get('/actualizar/{id}', [EscalaController::class, 'actualizar'])->name('actualizar');
+    Route::PUT('/actualizarEscala/{id}', [EscalaController::class, 'actualizarEscala'])->name('actualizarEscala');
     
 });

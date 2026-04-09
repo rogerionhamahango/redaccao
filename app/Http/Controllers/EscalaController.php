@@ -42,7 +42,7 @@ class EscalaController extends Controller
 
 
 
-        return view('s_escala2', compact('dias', 'horas', 'escalas', 'contagem'));
+        return view('s_escala2',  compact('dias', 'horas', 'escalas', 'contagem'));
     }
 
 
@@ -111,4 +111,66 @@ class EscalaController extends Controller
     return view('edicao_detalhada', compact('escalas', 'dias_semana', 'tipo'));
 }
 
+
+//Funcao para devolver a view de actualizar a escala
+
+public function actualizar_escala(){
+
+//buscar escalas da semana para a view com autorizacao de actualizar dados
+
+        $inicio = now()->startOfWeek();
+        $fim = now()->endOfWeek();
+
+        $dias = \Carbon\CarbonPeriod::create($inicio, $fim);
+        $dias->locale('pt_PT');
+
+        $horas = [
+            '4:30',
+            '9:55',
+            '13:55',
+            '18:55',
+            '0:00'
+        ];
+        $escalas = Emissao::whereBetween('dia', [$inicio, $fim])
+            ->with('jornalista')
+            ->get();
+
+
+       //Contar o numero de vezes que cada Locutor aparece na escala
+
+       $contagem = $escalas
+        ->groupBy(fn ($e) => $e->jornalista->abreviatura)
+        ->map(fn ($grupo) => $grupo->count());
+
+
+
+        return view('actualizar_escala', compact('dias', 'horas', 'escalas', 'contagem'));
+    
+
+ 
+}
+
+//funcao para chamar o formulario de actualizacao da escala de emissoes
+public function actualizar($id){
+    $escala = Emissao::findOrFail($id);
+    $locutores = DB::table('jornalistas')->get(); // ou Jornalista::all() se tiver um modelo
+    return view('actualizar', compact('escala', 'locutores'));
+}
+
+
+
+//metodo para actualizar a escala de emissoes, recebe os dados do formulario e actualiza a escala no banco de dados
+
+public function actualizarEscala(Request $request, $id){
+    $escala = Emissao::findOrFail($id);
+    $escala->locutor_id = $request->input('locutor_id');
+    $escala->hora_inicial = $request->input('hora_inicial');
+    $escala->hora_final = $request->input('hora_final');
+    $escala->dia = $request->input('dia');
+    $escala->dia_semana = $request->input('dia_semana');
+    $escala->save();
+
+    return redirect()->back()->with('success', 'Escala atualizada com sucesso!');
+}
+    
 }
