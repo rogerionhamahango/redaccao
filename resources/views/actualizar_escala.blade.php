@@ -6,7 +6,7 @@
 
 
 @section('table')
-    Escala semanal de Locutores
+    Escala semanal de Locutores sujeito a actualizacao
     
 @endsection
 

@@ -22,6 +22,12 @@
                 {{session('edicao_nao')}}
             </div>
         @endif
+
+        @if(session('folga'))
+            <div class="alert alert-danger">
+                {{session('folga')}}
+            </div>
+        @endif
     @endsection
 
     <div class="form-floating mb-3">
@@ -39,7 +45,7 @@
                     
                     @forelse ($noticiarios_jornais ?? [] as $edicao)
 
-                        <option value="{{$edicao->id}}">{{$edicao->nome_completo}}</option>
+                        <option value="{{$edicao->id}}">{{$edicao->abreviatura}}</option>
 
                     @empty
 

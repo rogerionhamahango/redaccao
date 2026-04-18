@@ -20,7 +20,8 @@ Emissoes
                         <li><a href="{{route('emissao')}}" class="dropdown-item">Registo de emissao</a></li>
                        <li><a href="{{route('programa')}}" class="dropdown-item">Registo de Programa</a></li>
                         <li><a href="{{route('jornalista')}}" class="dropdown-item">Registar Jornalista ou Locutor</a></li>
-                        
+                        <li><a href="{{route('folgas')}}" class="dropdown-item">Registar Folga</a></li>
+                
                         
                     </ul>
                 </li>

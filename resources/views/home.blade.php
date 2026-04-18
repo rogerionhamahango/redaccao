@@ -21,7 +21,7 @@
 
             -->
         
-         <a href="{{route('s_redacao')}}" class="btn btn-danger">Agenda da Redacao</a>
+         <a href="{{route('s_folgas')}}" class="btn btn-danger">Folgas Semanais</a>
 
          <a href="{{route('s_jornalistas')}}" class="btn btn-danger">Locutores e Jornalistas</a>
 

@@ -8,13 +8,25 @@
 @section('content')
 
     @section('table')
-        Regista a emissao
+        Actualizar a emissao
         @if(session('success'))
             <div class="alert alert-success">
                 {{session('success')}}
              </div>
             
-        @endif    
+        @endif   
+        
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{session('error')}}
+             </div>
+        @endif 
+        
+        @if(session('folga'))
+            <div class="alert alert-danger">
+                {{session('folga')}}
+            </div>
+        @endif 
     @endsection
 
     <div class="form-floating mb-3">
@@ -24,11 +36,11 @@
                 <a href="{{route('actualizar_escala')}}" class="btn btn-primary">Voltar</a>
             
             </div>
-        <form action="{{route('actualizarEscala', $escala->id)}}" method="POST">
+        <form action="{{route('actualizaEscala', $escala->id)}}" method="POST">
             @csrf
             @method('PUT')
             <div class="form-floating mb-3">
-                 <select name="locutor_id" class="form-control" >
+                 <select name="locutor_id" class="form-control">
                     <option value="">Selecione o Locutor/ Jornalista</option>
                     @foreach ($locutores ?? [] as $locutor)
                         <option value="{{$locutor->id}}"

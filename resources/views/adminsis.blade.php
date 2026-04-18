@@ -10,7 +10,7 @@
 
         <a href="{{route('utilizador')}}" class="btn btn-danger">Criar Conta</a>
          <a href="{{route('actualizar_escala')}}" class="btn btn-danger">ESCALA DE EMISSOES</a>
-         <a href="{{route('escala_edicoes')}}" class="btn btn-danger">Actualizar escala de edicoes</a>
+         <a href="{{route('actualizar_redacao')}}" class="btn btn-danger">ESCALA DE EDICOES</a>
          <a href="{{route('escala_edicoes')}}" class="btn btn-danger">Escala de Desporto</a>
          <a href="{{route('escala_edicoes')}}" class="btn btn-danger">Escala de Regionais</a>         
          <a href="{{route('s_programa')}}" class="btn btn-danger">Programas</a>

@@ -14,7 +14,13 @@
                 {{session('emissao')}}
              </div>
             
-        @endif    
+        @endif  
+        
+        @if(session('folga'))
+            <div class="alert alert-danger">
+                {{session('folga')}}
+             </div>
+        @endif
     @endsection
 
     <div class="form-floating mb-3">

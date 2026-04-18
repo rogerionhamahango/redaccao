@@ -91,9 +91,24 @@ use Illuminate\Support\Facades\Route;
     Route::post('/edicoes', [RedacaoController::class, 'edicoes'])->name('edicoes');
     Route::get('vencida_corrente_futura', [SemanaController::class, 'vencida_corrente_futura'])->name('vencida_corrente_futura');
     Route::get('edicao_detalhada', [EscalaController::class, 'edicao_detalhada'])->name('edicao_detalhada');
-
+    //rota para mostrar a escala de emissoes semanal e editavel
     Route::get('/actualizar_escala', [EscalaController::class, 'actualizar_escala'])->name('actualizar_escala');
+    //rota para mostrar a view com dados pre-selecionado do banco de dados para locutores
     Route::get('/actualizar/{id}', [EscalaController::class, 'actualizar'])->name('actualizar');
+    //rota que actualiza o banco de dados
     Route::PUT('/actualizarEscala/{id}', [EscalaController::class, 'actualizarEscala'])->name('actualizarEscala');
+
+    //rota para mostrar a view de esccala de edicoes semanal e editavel para edicoes
+    Route::get('/actualizar_redacao', [RedacaoController::class, 'actualizar_redacao'])->name('actualizar_redacao');
+    //rota para mostrar a view com dados pre-selecionado do banco de dados para edicoes
+    Route::get('/act_redacao/{id}', [RedacaoController::class, 'act_redacao'])->name('act_redacao');
+    //Actualizar a escala de edicoes no banco de dados
+    Route::PUT('/actualizaEscala/{id}', [EscalaController::class, 'actualizaEscala'])->name('actualizaEscala');
+    //rota para view das folgas 
+    Route::get('/folgas', [EscalaController::class, 'folgas'])->name('folgas');
+    Route::get('/registar_folga', [EscalaController::class, 'registar_folga'])->name('registar_folga');
+    //rota para registar folga no banco de dados
+   Route::POST('/registar_folga', [EscalaController::class, 'registar_folga'])->name('registar_folga');
+   Route::get('/s_folgas', [EscalaController::class, 's_folgas'])->name('s_folgas');
     
 });

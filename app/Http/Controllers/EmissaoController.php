@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Jornalista;
 use App\Models\Emissao;
 use Illuminate\Http\Request;
+use App\Models\Folga;
 use Illuminate\Support\Facades\DB;
 
 class EmissaoController extends Controller
@@ -38,6 +39,13 @@ class EmissaoController extends Controller
             'hora_inicial.required'=> 'Indique a hora inicial da emissao.',
             'hora_final.required'=> 'Indique a final da emissao',
         ]);
+
+        // verificar se o jornalista esta de folga no dia selecionado
+         if (Folga::where('jornalista_id', $request->locutor_id)
+         ->where('dia', $request->dia)
+         ->exists()) {
+            return redirect()->back()->with('folga', 'O jornalista está de folga neste dia.');
+        }
 
         if($request->filled('locutor_id', 'hora_inicial', 'hora_final', 'dia')){
             $emissao = Emissao::create($request->all());

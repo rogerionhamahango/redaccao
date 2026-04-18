@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Emissao;
 use App\Models\Edicao;
+use App\Models\Folga;
 use Carbon\Carbon;
 
 class EscalaController extends Controller
@@ -154,6 +155,7 @@ public function actualizar_escala(){
 public function actualizar($id){
     $escala = Emissao::findOrFail($id);
     $locutores = DB::table('jornalistas')->get(); // ou Jornalista::all() se tiver um modelo
+    
     return view('actualizar', compact('escala', 'locutores'));
 }
 
@@ -161,16 +163,78 @@ public function actualizar($id){
 
 //metodo para actualizar a escala de emissoes, recebe os dados do formulario e actualiza a escala no banco de dados
 
-public function actualizarEscala(Request $request, $id){
-    $escala = Emissao::findOrFail($id);
-    $escala->locutor_id = $request->input('locutor_id');
-    $escala->hora_inicial = $request->input('hora_inicial');
-    $escala->hora_final = $request->input('hora_final');
-    $escala->dia = $request->input('dia');
-    $escala->dia_semana = $request->input('dia_semana');
-    $escala->save();
+public function actualizaEscala(Request $request, $id){
 
-    return redirect()->back()->with('success', 'Escala atualizada com sucesso!');
+    $request->validate([
+        'locutor_id'=>'required',
+        'hora_inicial'=>'required',
+        'hora_final'=>'required',
+        'dia'=>'required',
+        'dia_semana'=>'required'
+    ],[
+        'locutor_id.required'=>'Indique o Locutor',
+        'hora_inicial.required'=>'Indique a hora de inicio da emissao',
+        'hora_final.required'=>'Indique a hora de fim da emissao',
+        'dia.required'=>'Indique o dia da emissao',
+        'dia_semana.required'=>'O campo dia de semana deve ser preenchido'
+    ]);
+
+    //  VERIFICA FOLGA CORRIGIDO
+    if (Folga::where('jornalista_id', $request->locutor_id)
+        ->where('dia', $request->dia)
+        ->exists()) {
+
+        return back()->with('folga', 'Jornalista está de folga neste dia');
+    }
+
+    $escala = Emissao::findOrFail($id);
+    $escala->update($request->all());
+
+    return back()->with('success', 'Escala atualizada com sucesso!');
 }
+
+public function folgas(){
+    $jornalistas = DB::table('jornalistas')->get();
+    $folgas = Folga::with('jornalista')->get();
+
+    return view('folgas', compact('jornalistas', 'folgas'));
     
+    }
+
+    public function registar_folga(Request $request){
+        $request->validate([
+            'jornalista_id'=>'required',
+            'dia'=>'required',
+            'dia_semana'=>'required'
+        ],[
+            'jornalista_id.required'=>'Indique o Jornalista',
+            'dia.required'=>'Indique o dia da folga',
+            'dia_semana.required'=>'O campo dia de semana deve ser preenchido'
+        ]);
+
+        Folga::create($request->all());
+
+        return back()->with('success', 'Folga registada com sucesso!');
+
+
+    }
+
+   public function s_folgas(){
+
+    \Carbon\Carbon::setLocale('pt_PT');
+
+    $inicio = now()->startOfWeek();
+    $fim = now()->endOfWeek();
+
+    $dias = \Carbon\CarbonPeriod::create($inicio, $fim);
+
+    $folgas = Folga::with('jornalista')
+        ->whereBetween('dia', [$inicio->toDateString(), $fim->toDateString()])
+        ->get()
+        ->groupBy(function ($item) {
+            return \Carbon\Carbon::parse($item->dia)->format('Y-m-d');
+        });
+
+    return view('s_folgas', compact('dias', 'folgas'));
+}
 }
