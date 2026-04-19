@@ -24,8 +24,15 @@
                                         <img src="/RadioMocambique.png " alt="Logo da Radio Mocambique" width="80" height="80">
                                     </div>
                                     <div class="card-body" >
+                                        @if(session('errado'))
+                                            <div class="alert alert-danger">
+                                                {{ session('errado') }}
+                                            </div>  
+                                        @endif    
+                                        
                                         <form method="POST" action="{{route('logar')}}" enctype="multipart/form-data">
                                             @csrf
+                                            
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="inputEmail" type="text" name="nome_utilizador" placeholder="name@example.com" />
                                                 <label for="inputEmail">Nome de utilizador</label>

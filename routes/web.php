@@ -18,18 +18,28 @@ use App\Http\Controllers\FrenteControler;
 use App\Http\Controllers\SemanaController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Middleware\ForcarAdmin;
+
 
 
     Route::get('/', [AdminsisController::class, 'home'])->name('home');
-    
 
+
+    Route::prefix('auth')->group(function () {
+        Route::get('/rede', [UtilizadorController::class, 'rede'])->name('rede');
+        Route::post('/logar', [UtilizadorController::class,'logar'])->name('logar');
+    });
+    
+   Route::middleware(['auth','tipo:Admin do Sistema,Chefe de Redacao,Chefe de Emissoes'])->group(function () {
+    
+    Route::get('/adminsis', [AdminsisController::class, 'adminsis'])->name('adminsis');
+
+});
     
     //rotas em grupo
     Route::prefix('admin')->group(function () {
     Route::get('/home', [AdminsisController::class, 'home'])->name('home');
-        //rota para login
-    Route::get('/rede', [UtilizadorController::class, 'rede'])->name('rede');
-        //rota para registar emissao
+       
     Route::get('/emissao', [EmissaoController::class, 'emissao'])->name('emissao');
         //rota para agendas da diarias da redacao
     Route::get('/redacao', [RedacaoController::class, 'redacao'])->name('redacao');
@@ -37,10 +47,8 @@ use Illuminate\Support\Facades\Route;
     Route::get('/programa', [ProgramaController::class, 'programa'])->name('programa');
         //rota para registar dados na base de dados
     Route::post('/gravar', [UtilizadorController::class, 'gravar'])->name('gravar');
-        //rota para autenticacao
-    Route::post('/logar', [UtilizadorController::class,'logar'])->name('logar');
-        //rota para administrador do sistema
-    Route::get('/adminsis', [AdminsisController::class, 'adminsis'])->name('adminsis');
+    
+    
         //rota para sair/logout
     Route::get('/logout', [UtilizadorController::class, 'logout'])->name('logout');
         //rota para agendar grande reportagem

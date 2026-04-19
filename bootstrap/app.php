@@ -12,6 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         //
+        $middleware->alias([
+        'tipo' => \App\Http\Middleware\ForcarAdmin::class,
+    ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

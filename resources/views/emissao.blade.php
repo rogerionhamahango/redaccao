@@ -21,6 +21,12 @@
                 {{session('folga')}}
              </div>
         @endif
+
+        @if(session('limite'))
+            <div class="alert alert-danger">
+                {{session('limite')}}
+             </div>
+        @endif
     @endsection
 
     <div class="form-floating mb-3">

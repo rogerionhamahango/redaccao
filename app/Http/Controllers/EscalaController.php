@@ -46,7 +46,7 @@ class EscalaController extends Controller
         return view('s_escala2',  compact('dias', 'horas', 'escalas', 'contagem'));
     }
 
-
+    //Buscar escala de edicoes da semana, com os jornalistas e contar o numero de vezes que cada jornalista aparece na escala de edicoes
     public function escala_edicoes(Request $request){
         $inicio = now()->startOfWeek();
         $fim= now()->endOfWeek();

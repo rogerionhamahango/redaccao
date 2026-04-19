@@ -15,10 +15,14 @@ class UtilizadorController extends Controller
     public function rede(){
         return view('welcome');
     }
+
+
     //esta funcao devolve a view onde se regista o novo utilizador
     public function utilizador(){
         return view('utilizador');
     }
+
+
     //esta funcao destina-se a gravar os dados no banco de dados e sua model denomina-se Utilizador
     public function gravar(Request $request){
         $request->validate([
@@ -61,45 +65,50 @@ class UtilizadorController extends Controller
     }
 
     //nesta funcao temos a logica de autenticar-se para fazer login onde tem 5 tipos de utilizadores
-    public function logar(Request $request){
-        $request->validate([
-            'nome_utilizador'=> 'required',
-            'senha'=> 'required|min:6',
-        ],[
-            'nome_utilizador.required'=> 'Forneca nome do utilizador',
-            'senha.required'=> 'Forneca a senha',
+    public function logar(Request $request)
+{
+    $request->validate([
+        'nome_utilizador'=> 'required',
+        'senha'=> 'required|min:6',
+    ],[
+        'nome_utilizador.required'=> 'Forneca nome do utilizador',
+        'senha.required'=> 'Forneca a senha',
+    ]);
 
-        ]);
-        $utilizador = Utilizador::where('nome_utilizador', $request->nome_utilizador)->first();
-        
-        
-        if(!$utilizador){
-            return redirect()->back()->with('errado','Utilizador nao encontrado!');
-        }
-        
+    $utilizador = Utilizador::where('nome_utilizador', $request->nome_utilizador)->first();
 
-        if(!$utilizador){
-            return redirect()->back()->with('credenciais','As credenciais fornecidas nao se ajustam no sistema!');
-        }
-        if(!password_verify($request->senha, $utilizador->senha)){
-            return redirect()->back()->with('autenticacao','Verifique o nome de utilizador ou senha e tenta de novo!');
-        }
-        Auth::loginUsingId($utilizador->id);
-        
-        if($utilizador-> tipo_utilizador == 'Chefe de Redacao'){
-            return redirect()->route('logged');
-        }else if($utilizador->tipo_utilizador == 'Chefe de Emissoes'){
-            return redirect()->route('emissaolog');
-        } else if($utilizador->tipo_utilizador == 'Admin do Sistema'){
-
-            return redirect()->route('adminsis');
-        } else if($utilizador -> tipo_utilizador == 'Frente Xangana'){
-            return redirect()->route('frente');
-        }
-        if($utilizador->tipo_utilizador == 'Frente Cicopi');
-        return redirect()->route('frente');
-           
+    if(!$utilizador){
+        return redirect()->back()->with('errado','Utilizador nao encontrado!');
     }
+
+    if(!password_verify($request->senha, $utilizador->senha)){
+        return redirect()->back()->with('autenticacao','Verifique o nome de utilizador ou senha e tente de novo!');
+    }
+
+    Auth::loginUsingId($utilizador->id);
+
+    // 🔥 REDIRECIONAMENTO LIMPO
+    switch ($utilizador->tipo_utilizador) {
+
+        case 'Chefe de Redacao':
+            return redirect()->route('logged');
+
+        case 'Chefe de Emissoes':
+            return redirect()->route('emissaolog');
+
+        case 'Admin do Sistema':
+            return redirect()->route('adminsis');
+
+        case 'Frente Xangana':
+        case 'Frente Cicopi':
+            return redirect()->route('frente');
+
+        default:
+            Auth::logout();
+            return redirect()->route('rede')
+                ->with('errado', 'Tipo de utilizador inválido');
+    }
+}
 
      
         

@@ -11,7 +11,7 @@
 
 @section('content')
     <div class="mb-3">
-        <a href="{{route('adminsis')}}" class="btn btn-primary">Voltar</a>
+        <a href="{{route('home')}}" class="btn btn-primary">Voltar</a>
     </div>
 
     <table class="table table-bordered text-left">
