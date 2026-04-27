@@ -15,7 +15,7 @@
     </div>
 
     <table class="table table-bordered text-left">
-    <thead>
+    <thead class="bg-danger">
         <tr>
             <th>HORAS</th>
             @foreach ($dias as $dia)
@@ -65,13 +65,13 @@
 <div class="mt-5">
     <h3>Contagem de Jornalistas na Escala de Edições</h3>
     <table class="table table-bordered text-left">
-        <thead>
+        <thead class="bg-danger">
             <tr>
                 <th>Jornalista</th>
                 <th>Numero de edicoes</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-warning">
             @foreach($jornalista_contagem as $nome => $contagem)
                 <tr>
                     <td>{{ $nome }}</td>

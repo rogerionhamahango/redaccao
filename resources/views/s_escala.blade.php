@@ -31,7 +31,7 @@
         </tr>
 
    </thead>
-   <tbody>
+   <tbody class="table-warning">
     @foreach($escalas as $dia_semana => $emissoes)
 
         @foreach($emissoes as $emissao)     

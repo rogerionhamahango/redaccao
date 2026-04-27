@@ -15,7 +15,7 @@
             @endforeach
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table-warning">
         @foreach($tabela as $linha)
             <tr>
                 <td>{{ $linha['nome'] }}</td>

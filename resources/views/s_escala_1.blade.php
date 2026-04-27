@@ -20,7 +20,7 @@
     @endphp
 
    <table  class="table table-bordered">
-   <thead>
+   <thead class="bg-danger">
         <tr class="bg-danger">
             <th>Hora</th>
             <th>Dia</th>
@@ -30,8 +30,8 @@
                       
         </tr>
 
-   </thead>
-   <tbody>
+   </thead >
+   <tbody class="table-warning">
     @foreach($escalas as $dia_semana => $emissoes)
 
         @foreach($emissoes as $emissao)     

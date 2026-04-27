@@ -73,7 +73,7 @@
                 <th>Numero de edicoes</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-warning">
             @foreach($jornalista_contagem as $nome => $contagem)
                 <tr>
                     <td>{{ $nome }}</td>

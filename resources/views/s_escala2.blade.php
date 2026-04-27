@@ -18,7 +18,7 @@
     </div>
 
 <table class="table table-bordered text-center">
-    <thead>
+    <thead class="bg-danger">
         <tr>
             <th>HORAS</th>
             @foreach ($dias as $dia)
@@ -29,7 +29,7 @@
             @endforeach
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table-warning">
         @foreach($horas as $hora)
             <tr>
                 <td>
@@ -59,16 +59,21 @@
 
 <h2>Numero de emissoes por Locutor durante esta semana</h2>
 <table class="table table-bordered text-left">
-    <tr>
-        <th>Nome do Locutor</th>
-        <th>Numero de emissoes</th>
-    </tr>
-    @foreach($contagem as $nome => $total)
+    <thead class="bg-danger">
         <tr>
-            <td>{{ $nome }}</td>
-            <td>{{ $total }}</td>
+            <th >Nome do Locutor</th>
+            <th>Numero de emissoes</th>
         </tr>
-    @endforeach
+    </thead> 
+
+    <tbody> 
+        @foreach($contagem as $nome => $total)
+            <tr >
+                <td>{{ $nome }}</td>
+                <td>{{ $total }}</td>
+            </tr>
+        @endforeach
+    </tbody>
 </table>
 
     

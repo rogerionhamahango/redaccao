@@ -29,7 +29,7 @@
             @endforeach
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table-warning">
         @foreach($horas as $hora)
             <tr>
                 <td>

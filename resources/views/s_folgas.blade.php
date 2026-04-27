@@ -19,14 +19,14 @@
     
 
     <table class="table table-bordered">
-    <thead>
+    <thead class="bg-danger">
         <tr>
             <th>Dia</th>
             <th>Data</th>
             <th>Folgas</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table-warning">
         @foreach($dias as $dia)
             <tr>
                 <td>{{ $dia->translatedFormat('l') }}</td>
