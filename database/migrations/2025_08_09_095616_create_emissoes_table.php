@@ -18,6 +18,7 @@ return new class extends Migration
             $table->time('hora_final');
             $table->date('dia');
             $table->string('dia_semana');
+         
             $table->timestamps();
         });
     }

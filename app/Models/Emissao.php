@@ -13,7 +13,7 @@ class Emissao extends Model
         'hora_inicial',
         'hora_final',
         'dia',
-        'dia_semana',
+       
 
     ];
 

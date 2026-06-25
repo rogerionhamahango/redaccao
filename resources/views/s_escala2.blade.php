@@ -15,6 +15,10 @@
 <!-- Botao voltar -->
     <div class="mb-3">
         <a href="{{route('home')}}" class="btn btn-primary">Voltar</a>
+        <a href="{{ url()->current() }}?pdf=1" class="btn btn-danger">
+            
+    Baixar PDF
+</a>
     </div>
 
 <table class="table table-bordered text-center">
@@ -45,9 +49,15 @@
 
                         @endphp
                         @if ($escala)
-                            <strong>{{ $escala->jornalista->abreviatura }}</strong>
-                        @else
-                            ==
+                            @if($escala->faltas)
+            <div style="color:red; font-weight:bold;">
+                {{ $escala->jornalista->abreviatura }} (Falta)
+                
+        @else
+            <strong>{{ $escala->jornalista->abreviatura }}</strong>
+        @endif
+
+        <br>
                         @endif
                     </td>
                     @endforeach

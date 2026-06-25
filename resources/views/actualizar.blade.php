@@ -14,7 +14,13 @@
                 {{session('success')}}
              </div>
             
-        @endif   
+        @endif 
+          
+        @if(session('falta'))
+        <div class="alert alert-danger">
+            {{ session('falta') }}
+        </div>
+         @endif
         
         @if(session('error'))
             <div class="alert alert-danger">
@@ -78,16 +84,7 @@
                 <span class="input-group-text">Data</span>
                 <input type="date" name="dia" class="form-control" value="{{ $escala->dia }}">
                 
-                <span class="input-group-text">Dia da semana</span>
-                 <select name="dia_semana" class="form-control">
-                    <option value="segunda" {{ $escala->dia_semana == 'segunda' ? 'selected' : '' }}>Segunda-feira</option>
-                    <option value="terça" {{ $escala->dia_semana == 'terça' ? 'selected' : '' }}>Terça-feira</option>
-                    <option value="quarta" {{ $escala->dia_semana == 'quarta' ? 'selected' : '' }}>Quarta-feira</option>
-                    <option value="quinta" {{ $escala->dia_semana == 'quinta' ? 'selected' : '' }}>Quinta-feira</option>
-                    <option value="sexta" {{ $escala->dia_semana == 'sexta' ? 'selected' : '' }}>Sexta-feira</option>
-                    <option value="sábado" {{ $escala->dia_semana == 'sábado' ? 'selected' : '' }}>Sábado</option>
-                    <option value="domingo" {{ $escala->dia_semana == 'domingo' ? 'selected' : '' }}>Domingo</option>
-                </select>
+                
                 
             </div>
 

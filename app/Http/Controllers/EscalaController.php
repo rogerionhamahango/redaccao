@@ -10,6 +10,8 @@ use App\Models\Emissao;
 use App\Models\Edicao;
 use App\Models\Folga;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class EscalaController extends Controller
 {
@@ -41,40 +43,64 @@ class EscalaController extends Controller
         ->groupBy(fn ($e) => $e->jornalista->abreviatura)
         ->map(fn ($grupo) => $grupo->count());
 
+       
+        if ($request->has('download')) {
+            $pdf = Pdf::loadView('s_escala2', compact('dias', 'horas', 'escalas', 'contagem'));
+            return $pdf->download('escala_emissoes.pdf');
+        }
 
 
         return view('s_escala2',  compact('dias', 'horas', 'escalas', 'contagem'));
+         
     }
+
+
+
+
 
     //Buscar escala de edicoes da semana, com os jornalistas e contar o numero de vezes que cada jornalista aparece na escala de edicoes
-    public function escala_edicoes(Request $request){
-        $inicio = now()->startOfWeek();
-        $fim= now()->endOfWeek();
-        $dias = \Carbon\CarbonPeriod::create($inicio, $fim);
-        $dias -> locale('pt-PT');
+    public function escala_edicoes(Request $request)
+{
+    $inicio = now()->startOfWeek();
+    $fim = now()->endOfWeek();
 
-        $horas = [
-            '8:10',
-            '12:00',
-            '15:00',
-            '19:00',
-            '23:00'
-        ];
-        
+    $dias = \Carbon\CarbonPeriod::create($inicio, $fim)->locale('pt_PT');
 
+    $horas = [
+        '08:10',
+        '12:00',
+        '15:00',
+        '19:00',
+       
+    ];
 
-        $escala_edicoes = Edicao::whereBetween(DB::raw('DATE(dia)'), [$inicio, $fim])
-            ->with('jornalista')
-            ->get();
+    $escala_edicoes = Edicao::whereBetween(DB::raw('DATE(dia)'), [$inicio, $fim])
+        ->with('jornalista')
+        ->get();
 
-            //contar o numero de vezes que aparece o jornalista na escala de edicoes
-            $jornalista_contagem = $escala_edicoes
-                ->groupBy('jornalista.abreviatura')
-                ->map(fn($jornalista) => $jornalista->count());
+    // CONTAGEM
+    $jornalista_contagem = $escala_edicoes
+        ->groupBy('jornalista.abreviatura')
+        ->map(fn($j) => $j->count());
 
-            return view('s_escala_edicoes', compact('dias', 'horas', 'escala_edicoes', 'jornalista_contagem'));
-        
-    }
+    //  RESUMO DAS 23H (12h + 15h + 19h)
+    $resumo_23h = $escala_edicoes
+        ->whereIn('hora_inicial', ['12:00', '15:00', '19:00'])
+        ->groupBy(fn($e) => \Carbon\Carbon::parse($e->dia)->format('Y-m-d'))
+        ->map(fn($grupo) =>
+            $grupo->pluck('jornalista.abreviatura')
+                ->filter()
+                ->values()
+        );
+
+    return view('s_escala_edicoes', compact(
+        'dias',
+        'horas',
+        'escala_edicoes',
+        'jornalista_contagem',
+        'resumo_23h'
+    ));
+}
 
 
     //Metodo para mostrar escala detalhada de edicoes
@@ -163,23 +189,24 @@ public function actualizar($id){
 
 //metodo para actualizar a escala de emissoes, recebe os dados do formulario e actualiza a escala no banco de dados
 
-public function actualizaEscala(Request $request, $id){
-
+public function actualizaEscala(Request $request, $id)
+{
     $request->validate([
-        'locutor_id'=>'required',
-        'hora_inicial'=>'required',
-        'hora_final'=>'required',
-        'dia'=>'required',
-        'dia_semana'=>'required'
-    ],[
-        'locutor_id.required'=>'Indique o Locutor',
-        'hora_inicial.required'=>'Indique a hora de inicio da emissao',
-        'hora_final.required'=>'Indique a hora de fim da emissao',
-        'dia.required'=>'Indique o dia da emissao',
-        'dia_semana.required'=>'O campo dia de semana deve ser preenchido'
+        'locutor_id' => 'required',
+        'hora_inicial' => 'required',
+        'hora_final' => 'required',
+        'dia' => 'required',
+     
     ]);
 
-    //  VERIFICA FOLGA CORRIGIDO
+    $escala = Emissao::findOrFail($id);
+
+    // impede editar se já marcou falta
+    if ($escala->faltas==true) {
+        return back()->with('falta', 'Não é possível editar uma emissão já marcada como falta');
+    }
+
+    // verifica folga
     if (Folga::where('jornalista_id', $request->locutor_id)
         ->where('dia', $request->dia)
         ->exists()) {
@@ -187,21 +214,18 @@ public function actualizaEscala(Request $request, $id){
         return back()->with('folga', 'Jornalista está de folga neste dia');
     }
 
-    $escala = Emissao::findOrFail($id);
-    $escala->update($request->all());
+    $escala->update([
+        'locutor_id' => $request->locutor_id,
+        'hora_inicial' => $request->hora_inicial,
+        'hora_final' => $request->hora_final,
+        'dia' => $request->dia,
+    ]);
 
     return back()->with('success', 'Escala atualizada com sucesso!');
 }
 
-public function folgas(){
-    $jornalistas = DB::table('jornalistas')->get();
-    $folgas = Folga::with('jornalista')->get();
-
-    return view('folgas', compact('jornalistas', 'folgas'));
-    
-    }
-
-    public function registar_folga(Request $request){
+//Metodo que regista folgas no banco de dados
+public function registar_folga(Request $request){
         $request->validate([
             'jornalista_id'=>'required',
             'dia'=>'required',
@@ -218,13 +242,23 @@ public function folgas(){
 
 
     }
+//Metodo que visualiza as folgas durante a semana. 
+public function folgas(){
+    $jornalistas = DB::table('jornalistas')->get();
+    $folgas = Folga::with('jornalista')->get();
+
+    return view('folgas', compact('jornalistas', 'folgas'));
+    
+    }
+
+    
 
    public function s_folgas(){
 
     \Carbon\Carbon::setLocale('pt_PT');
 
     $inicio = now()->startOfWeek();
-    $fim = now()->endOfWeek();
+    $fim = now()->addWeeks(2)->endOfWeek();
 
     $dias = \Carbon\CarbonPeriod::create($inicio, $fim);
 
@@ -237,4 +271,34 @@ public function folgas(){
 
     return view('s_folgas', compact('dias', 'folgas'));
 }
+
+//Metodo que actualiza a escala de edicoes no banco de dados, recebe os dados do formulario e actualiza a escala de edicoes no banco de dados
+public function actualizarEscalaEdicoes(Request $request, $id)
+{
+    $request->validate([
+       'id_jornalista' => 'required',
+        'dia' => 'required',
+        'horas' => 'required',
+        'lingua' => 'required'
+    ]); 
+
+    $escalaEdicoes = Edicao::findOrFail($id);
+
+        if(Folga::where('jornalista_id', $request->id_jornalista)->where('dia', $request->dia)->exists()){
+            return back()->with('folga', 'Este jornalista está de folga neste dia, escolha outro por favor.');
+        }
+
+        
+        $escalaEdicoes->update([
+            'id_jornalista' => $request->id_jornalista,
+            'dia' => $request->dia,
+            'horas' => $request->horas,
+            'lingua' => $request->lingua
+        ]);
+
+        return back()->with('success', 'Escala de edições atualizada com sucesso!');
+
+    }    
+        
+
 }

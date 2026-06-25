@@ -8,7 +8,7 @@
 @section('content')
 
     @section('table')
-        Regista a emissao
+        Registar a emissao
         @if(session('emissao'))
             <div class="alert alert-success">
                 {{session('emissao')}}
@@ -69,21 +69,11 @@
                 </select>
                 <span class="input-group-text">Data</span>
                 <input type="date" name="dia" class="form-control">
-                
-                <span class="input-group-text">Data</span>
-                 <select name="dia_semana" class="form-control">
-                    <option value="">Indique o dia da semana</option>
-                    <option value="segunda">Segunda-Feira</option>
-                    <option value="terça">Terça-Feira</option>
-                    <option value="quarta">Quarta-Feira</option>
-                    <option value="quinta">Quinta-Feira</option>
-                    <option value="Sexta">Sexta-Feira</option>
-                    <option value="sábado">Sabado</option>
-                    <option value="domingo">Domingo</option>
-                </select>
-                
             </div>
 
+            
+
+            
             
 
                   <div class="form-floating mb-3">

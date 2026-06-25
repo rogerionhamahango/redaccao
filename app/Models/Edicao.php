@@ -11,7 +11,6 @@ class Edicao extends Model
     protected $fillable = [
         'id_jornalista',
         'dia',
-        'dia_semana',
         'horas',
         'lingua'
     ];

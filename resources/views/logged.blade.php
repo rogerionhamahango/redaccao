@@ -5,6 +5,15 @@ Emissoes
 @endsection
 
 @section('table')
+    <div>
+        <a href="{{route('redacao')}}" class="btn btn-danger"ss="dropdown-item">Agenda da Redacao</a>
+        <a href="{{route('noticiarioJornais')}}" class="btn btn-danger">Edicoes da semana</a>
+        <a href="{{route('grande_reportagem')}}" class="btn btn-danger">Grande Reportagem</a>
+        <a href="{{route('jornalista')}}" class="btn btn-danger">Registar Jornalista ou Locutor</a>
+         <a href="{{route('agendado')}}" class="btn btn-danger">Actividades agendadas</a>
+         <a href="{{route('redacao')}}" class="btn btn-danger">Agenda da Redacao</a>
+        <a href="{{route('agendado')}}" class="btn btn-danger">Actividades agendadas</a>
+    </div>
     Sector de Redacao
 @endsection
 

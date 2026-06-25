@@ -23,9 +23,9 @@
         @endif 
 
 
-        @if(session('nao_atualizada'))
-            <div class="alert alert-danger">
-                {{session('nao_atualizada')}}
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{session('success')}}
             </div>
         @endif
     @endsection
@@ -37,7 +37,7 @@
                 <a href="{{route('adminsis')}}" class="btn btn-primary">Voltar</a>
             
             </div>
-        <form action="{{route('actualizarEscala', ['id' => $edicao->id])}}" method="POST">
+        <form action="{{route('actualizarEscalaEdicoes', ['id' => $edicao->id])}}" method="POST">
             @csrf
             @method('PUT')
             <div class="card-body">
@@ -66,17 +66,6 @@
                 <span class="input-group-text">Data</span>
                 <input type="date" name="dia" class="form-control" value="{{ $edicao->dia }}">
                 
-                <span class="input-group-text">Dia de Semana</span>
-                <select name="dia_semana" class="form-control">
-                    <option value="">Indique o dia da semana</option>
-                    <option value="segunda" {{ $edicao->dia_semana == 'segunda' ? 'selected' : '' }}>Segunda-Feira</option>
-                    <option value="terça" {{ $edicao->dia_semana == 'terça' ? 'selected' : '' }}>Terça-Feira</option>
-                    <option value="quarta" {{ $edicao->dia_semana == 'quarta' ? 'selected' : '' }}>Quarta-Feira</option>
-                    <option value="quinta" {{ $edicao->dia_semana == 'quinta' ? 'selected' : '' }}>Quinta-Feira</option>
-                    <option value="Sexta" {{ $edicao->dia_semana == 'Sexta' ? 'selected' : '' }}>Sexta-Feira</option>
-                    <option value="sábado" {{ $edicao->dia_semana == 'sábado' ? 'selected' : '' }}>Sabado</option>
-                    <option value="domingo" {{ $edicao->dia_semana == 'domingo' ? 'selected' : '' }}>Domingo</option>
-                </select>
                         
                 <span class="input-group-text">Horas</span>
                <select name="horas" class="form-control">

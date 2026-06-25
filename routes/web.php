@@ -16,7 +16,10 @@ use App\Models\Utilizador;
 use App\Http\Controllers\EscalaController;
 use App\Http\Controllers\FrenteControler;
 use App\Http\Controllers\SemanaController;
+
 use Illuminate\Support\Facades\Route;
+//Para explorar o PDF
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use App\Http\Middleware\ForcarAdmin;
 
@@ -39,6 +42,8 @@ use App\Http\Middleware\ForcarAdmin;
     //rotas em grupo
     Route::prefix('admin')->group(function () {
     Route::get('/home', [AdminsisController::class, 'home'])->name('home');
+
+    
        
     Route::get('/emissao', [EmissaoController::class, 'emissao'])->name('emissao');
         //rota para agendas da diarias da redacao
@@ -86,10 +91,14 @@ use App\Http\Middleware\ForcarAdmin;
     Route::get('s_escala', [EmissaoController::class,'s_escala'])->name('s_escala');
         //rota de saida de escala de emissoes outra forma de visualizar
     Route::get('/escalaEmissoes', [EmissaoController::class,'escalaEmissoes'])->name('escalaEmissoes');
-        //rota de semanal e actualizada
+        
+    
+    //rota de semanal e actualizada
     Route::get('/escala', [EscalaController::class, 'escala'])->name('escala');
+
         //rota de saida na view de escala de edicoes semanais
     Route::get('/escala_edicoes', [EscalaController::class, 'escala_edicoes'])->name('escala_edicoes');
+
         //rota para view dos chefes da frente.
     Route::get('/frente', [FrenteControler::class, 'frente'])->name('frente');
 
@@ -103,20 +112,38 @@ use App\Http\Middleware\ForcarAdmin;
     Route::get('/actualizar_escala', [EscalaController::class, 'actualizar_escala'])->name('actualizar_escala');
     //rota para mostrar a view com dados pre-selecionado do banco de dados para locutores
     Route::get('/actualizar/{id}', [EscalaController::class, 'actualizar'])->name('actualizar');
-    //rota que actualiza o banco de dados
-    Route::PUT('/actualizarEscala/{id}', [EscalaController::class, 'actualizarEscala'])->name('actualizarEscala');
+
 
     //rota para mostrar a view de esccala de edicoes semanal e editavel para edicoes
     Route::get('/actualizar_redacao', [RedacaoController::class, 'actualizar_redacao'])->name('actualizar_redacao');
-    //rota para mostrar a view com dados pre-selecionado do banco de dados para edicoes
-    Route::get('/act_redacao/{id}', [RedacaoController::class, 'act_redacao'])->name('act_redacao');
-    //Actualizar a escala de edicoes no banco de dados
-    Route::PUT('/actualizaEscala/{id}', [EscalaController::class, 'actualizaEscala'])->name('actualizaEscala');
+
+    
+    
+    //Rota para faltas de locutores
+    Route::post('/marcarFalta/{id}', [EmissaoController::class, 'marcarFalta'])->name('marcarFalta');
+
+
     //rota para view das folgas 
     Route::get('/folgas', [EscalaController::class, 'folgas'])->name('folgas');
     Route::get('/registar_folga', [EscalaController::class, 'registar_folga'])->name('registar_folga');
     //rota para registar folga no banco de dados
-   Route::POST('/registar_folga', [EscalaController::class, 'registar_folga'])->name('registar_folga');
-   Route::get('/s_folgas', [EscalaController::class, 's_folgas'])->name('s_folgas');
+    Route::POST('/registar_folga', [EscalaController::class, 'registar_folga'])->name('registar_folga');
+    Route::get('/s_folgas', [EscalaController::class, 's_folgas'])->name('s_folgas');
+
+
+
+
+   //Rotas de actualizacoes de dados de utilizadores, jornalistas e programas
+   
+        //rota para mostrar a view com dados pre-selecionado do banco de dados para edicoes
+    Route::get('/act_redacao/{id}', [RedacaoController::class, 'act_redacao'])->name('act_redacao');
+   //Actualizar a escala de edicoes no banco de dados
+    Route::PUT('/actualizaEscala/{id}', [EscalaController::class, 'actualizaEscala'])->name('actualizaEscala');
+
+        //rota que actualiza o banco de emissoes
+    Route::PUT('/actualizarEscala/{id}', [EscalaController::class, 'actualizarEscala'])->name('actualizarEscala');
+
+    //rota que actualiza o as edicoes da redacao;
+    Route::PUT('/actualizarEscalaEdicoes/{id}', [EscalaController::class, 'actualizarEscalaEdicoes'])->name('actualizarEscalaEdicoes');
     
 });

@@ -29,7 +29,7 @@ class ProgramaController extends Controller
 
         if($request->filled('produtor_id', 'programa', 'lingua', 'duracao', 'data_transmissao')){
             $dados = Programa::create( $request->all() );
-        return redirect()->back()->with('programa', 'Parabens o programa foi cadastrado com sucesso');
+        return redirect()->back()->with('programa', 'Programa cadastrado com sucesso');
 
         }else{
             return redirect()->back()->with('nao', 'Verifique se preencheu todos campos.');

@@ -5,7 +5,16 @@ Emissoes
 @endsection
 
 @section('table')
+
+    <div>
+        <a href="{{route('emissao')}}" class="btn btn-danger">Registo de emissao</a>
+        <a href="{{route('programa')}}" class="btn btn-danger">Registo de Programa</a>
+        <a href="{{route('jornalista')}}" class="btn btn-danger">Registar Jornalista ou Locutor</a>
+        <a href="{{route('folgas')}}" class="btn btn-danger">Registar Folga</a>
+    </div>
+    <br>
     Sector de emissoes.
+    <br>
 @endsection
 
 @section('botao')
@@ -30,6 +39,9 @@ Emissoes
 
 
 @section('content')
+
+
+
     <h1>A radiodifusao em Mocambique!</h1>
 
     <p style="text-align: justify; text-justify: inter-word; line-height: 1.5; font-size: 16px;">

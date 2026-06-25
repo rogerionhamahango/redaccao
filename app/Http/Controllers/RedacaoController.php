@@ -9,6 +9,7 @@ use App\Models\Jornalista;
 use App\Models\Redacao;
 use App\Models\Folga;
 use App\Models\Edicao;
+use App\Models\Emissao;
 
 class RedacaoController extends Controller
 {
@@ -56,20 +57,17 @@ public function agenda(Request $request){
         $request->validate([
             'id_jornalista'=>'required',
             'dia'=>'required',
-            'dia_semana'=>'required',
             'horas'=>'required',
             'lingua'=>'required'
         ],[
             'id_jornalista.required'=>'Indique o Jornalista',
             'dia.required'=>'Indique o dia da edicao',
-            'dia_semana.required'=>'O campo dia de semana deve ser preenchido',
             'lingua.required'=>'Indique a lingua desta edicao'
         ]);
         //Verificar se todos campos foram preenchidos
         if($request->filled([
             'id_jornalista',
             'dia',
-            'dia_semana',
             'horas',
             'lingua'
         ])){
@@ -119,50 +117,52 @@ public function agenda(Request $request){
     }
 
     //funcao para mostrar a view de busca de jornalistas e locutores
-    public function act_redacao($id){
-        $edicao = Edicao::findOrFail($id);
-        $jornalistas = Jornalista::orderBy('nome_completo', 'asc')
-        ->get();
-
-        return view('act_redacao', compact('edicao', 'jornalistas'));
-    }
-
-    //funcao para actualizar a escala de edicoes no banco de dados
-    public function actualizarEscala(Request $request, $id){
-        $request->validate([
-            'id_jornalista'=>'required',
-            'dia'=>'required',
-            'dia_semana'=>'required',
-            'horas'=>'required',
-            'lingua'=>'required'
-        ],[
-            'id_jornalista.required'=>'Indique o Jornalista',
-            'dia.required'=>'Indique o dia da edicao',
-            'dia_semana.required'=>'O campo dia de semana deve ser preenchido',
-            'lingua.required'=>'Indique a lingua desta edicao'
-        ]); 
-        if($request->filled([
-            'id_jornalista',
-            'dia',
-            'dia_semana',
-            'horas',
-            'lingua'
-        ])){
-
-               //  VERIFICA FOLGA CORRIGIDO
-    if (Folga::where('jornalista_id', $request->locutor_id)
-        ->where('dia', $request->dia)
-        ->exists()) {
-
-        return back()->with('folga', 'Jornalista está de folga neste dia');
-    }
+        public function act_redacao($id){
             $edicao = Edicao::findOrFail($id);
-            dd($request->all());
-            $edicao->update($request->all());
+            $jornalistas = Jornalista::orderBy('nome_completo', 'asc')
+            ->get();
 
-            return redirect()->route('actualizar_redacao')->with('atualizada', 'Escala de edicoes actualizada com sucesso');
+            return view('act_redacao', compact('edicao', 'jornalistas'));
         }
-        return redirect()->route('actualizar_redacao')->with('nao_atualizada', 'Escala de edicoes nao actualizada, verifique os dados e tente de novo');    
+
+            //funcao para actualizar a escala de edicoes no banco de dados
+        public function actualizarEscala(Request $request, $id){
+            $request->validate([
+                'id_jornalista'=>'required',
+                'dia'=>'required',
+                'horas'=>'required',
+                'lingua'=>'required'
+            ],[
+                'id_jornalista.required'=>'Indique o Jornalista',
+                'dia.required'=>'Indique o dia da edicao',
+                'lingua.required'=>'Indique a lingua desta edicao'
+            ]); 
+            if($request->filled([
+                'id_jornalista',
+                'dia',
+                'horas',
+                'lingua'
+            ])){
+
+                //  VERIFICA FOLGA CORRIGIDO
+        if (Folga::where('jornalista_id', $request->locutor_id)
+            ->where('dia', $request->dia)
+            ->exists()) {
+
+            return back()->with('folga', 'Jornalista está de folga neste dia');
+        }
+
+                $falta = Emissao::where('locutor_id', $request->id_jornalista);
+                if($falta->exists()){
+                    return redirect()->route('actualizar_redacao')->with('falta', 'Edicao nao actualizada, este jornalista tem falta marcada para este dia');
+                }
+                $edicao = Edicao::findOrFail($id);
+                dd($request->all());
+                $edicao->update($request->all());
+
+                return redirect()->route('actualizar_redacao')->with('atualizada', 'Edicao actualizada com sucesso');
+            }
+            return redirect()->route('actualizar_redacao')->with('nao_atualizada', 'Escala de edicoes nao actualizada, verifique os dados e tente de novo');    
 
     }
 

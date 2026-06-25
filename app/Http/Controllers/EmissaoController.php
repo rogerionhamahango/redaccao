@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Folga;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class EmissaoController extends Controller
 {
@@ -32,7 +33,7 @@ public function emissao_loc(Request $request)
         'hora_inicial'=> 'required',
         'hora_final'=> 'required',
         'dia'=> 'required|date',
-        'dia_semana'=> 'required',
+        
     ],[
         'locutor_id.required'=> 'Indique o locutor.',
         'hora_inicial.required'=> 'Indique a hora inicial da emissao.',
@@ -69,7 +70,7 @@ public function emissao_loc(Request $request)
         'hora_inicial' => $request->hora_inicial,
         'hora_final' => $request->hora_final,
         'dia' => $request->dia,
-        'dia_semana' => $request->dia_semana,
+       
     ]);
 
     return redirect()->back()->with('emissao', 'Emissao agendada com sucesso!');
@@ -78,26 +79,26 @@ public function emissao_loc(Request $request)
     public function s_escala(){
         $dados = DB :: table('emissoes')
         ->join('jornalistas', 'emissoes.locutor_id','=','jornalistas.id')
-        ->select('jornalistas.nome_completo as nome', 'emissoes.hora_inicial', 'jornalistas.redacao_de as redacao', 'emissoes.dia', 'emissoes.dia_semana', 'emissoes.hora_final')
+        ->select('jornalistas.nome_completo as nome', 'emissoes.hora_inicial', 'jornalistas.redacao_de as redacao', 'emissoes.dia',  'emissoes.hora_final')
         ->orderBy('dia', 'asc')
         ->get();
 
+        $pdf = Pdf::loadView('s_escala', ['dados'=> $dados]);
+        return $pdf->stream('escala_emissoes.pdf');
+
         return view('s_escala', ['dados'=> $dados]);
 
+
+    }
+    //marcar falta ao locutor ausente na emissao.
+
+    public function marcarFalta($id){
+        $emissao = Emissao::findOrFail($id);
+        $emissao->faltas = true;
+        $emissao->save();
+
+        return back()->with('success', 'Falta marcada com sucesso!');
     }
 
-    // Escala de Emissões uma forma de organizar
-    public function escalaEmissoes(){
-
-        $escalas = Emissao :: with('jornalista')
-        ->orderBy('dia', 'asc')
-        ->orderBy('hora_inicial')
-        ->orderBy('dia_semana')
-        
-        
-        ->get()
-        ->groupBy('dia_semana');
-
-        return view('s_escala_1', ['escalas'=> $escalas]);
-    }
+   
 }

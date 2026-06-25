@@ -87,7 +87,7 @@ class UtilizadorController extends Controller
 
     Auth::loginUsingId($utilizador->id);
 
-    // 🔥 REDIRECIONAMENTO LIMPO
+    //  REDIRECIONAMENTO LIMPO
     switch ($utilizador->tipo_utilizador) {
 
         case 'Chefe de Redacao':

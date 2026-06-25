@@ -63,17 +63,7 @@
                 <span class="input-group-text">Data</span>
                 <input type="date" name="dia" class="form-control">
                 
-                <span class="input-group-text">Dia de Semana</span>
-                <select name="dia_semana" class="form-control">
-                    <option value="">Indique o dia da semana</option>
-                    <option value="segunda">Segunda-Feira</option>
-                    <option value="terça">Terça-Feira</option>
-                    <option value="quarta">Quarta-Feira</option>
-                    <option value="quinta">Quinta-Feira</option>
-                    <option value="Sexta">Sexta-Feira</option>
-                    <option value="sábado">Sabado</option>
-                    <option value="domingo">Domingo</option>
-                </select>
+                
                         
                 <span class="input-group-text">Horas</span>
                <select name="horas" class="form-control">
@@ -82,7 +72,7 @@
                 <option value="12:00">12h e 13h</option>
                 <option value="15:00">14h10 as 17h</option>
                 <option value="19:00">19h e 22h</option>
-                <option value="23:00">Trilingue</option>
+               
                 
                </select>
 

@@ -24,7 +24,7 @@
         <tr class="bg-danger">
             <th>Hora</th>
             <th>Dia</th>
-            <th>Dia da Semana</th>
+            
             <th>Nome do Locutor</th> 
             <th>Provincia</th> 
                       
@@ -32,18 +32,16 @@
 
    </thead>
    <tbody class="table-warning">
-    @foreach($escalas as $dia_semana => $emissoes)
-
-        @foreach($emissoes as $emissao)     
+   @foreach($dados as $emissao)
+    @foreach($emissoes as $emissao)
         <tr class="text-nowrap text-dark" style="font-size: 18px; font-weight: bold;">
-            <td>{{ $emissao->hora_inicial }} - {{ $emissao->hora_final}} </td>
-            <td>{{ $emissao->dia}}</td>
-            <td>{{ $emissao->dia_semana }}</td>
+            <td>{{ $emissao->hora_inicial }} - {{ $emissao->hora_final }}</td>
+            <td>{{ $emissao->dia }}</td>
             <td>{{ $emissao->jornalista->nome_completo }}</td>
-            <td>{{ $emissao->provincia->nome }}</td>            
+            <td>{{ $emissao->provincia->nome }}</td>
         </tr>
-        @endforeach
     @endforeach
+@endforeach
    </tbody> 
     </table>
 

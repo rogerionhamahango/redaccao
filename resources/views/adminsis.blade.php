@@ -22,19 +22,19 @@
         <div class="d-flex justify-content-between">
             <div class="p-4 w-50 h-50 mb-3 text-white">
             
-                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div id="carouselExampleControls" class="carousel slide bg-warning" data-bs-ride="carousel ">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="{{asset('img/rm2.jpeg')}}" class="d-block w-75" alt="...">
+                            <img src="{{asset('img/Matsinhe_Nhamahango_Frederico_Muianga.jpg')}}" class="d-block w-75" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="{{asset('img/rm3.jpeg')}}" class="d-block w-75" alt="...">
+                            <img src="{{asset('img/Matsinhe_chauque_unisave.jpg')}}" class="d-block w-75" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="{{asset('img/rm4.jpeg')}}" class="d-block w-75" alt="...">
+                            <img src="{{asset('img/O_VISTA_RM.jpg')}}" class="d-block w-75" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="{{asset('img/rm1.png')}}" class="d-block w-75" alt="...">
+                            <img src="{{asset('img/RM_FRENTE.jpg')}}" class="d-block w-75" alt="...">
                         </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
